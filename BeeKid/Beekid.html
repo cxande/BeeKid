@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeeKid</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="BeeKidCSS.css">
+</head>
+<body>
+ 
+    <!-- ==================== -->
+    <!-- Tela principal de login -->
+    <!-- ==================== -->
+    <main class="container">
+        <div class="roxo">
+            <form>
+                <h1>BeeKid</h1>
+                
+                <!-- Campos de login -->
+                <div class="input_box">
+                    <input placeholder="CPF">
+                    <i class="bx bxs-user"></i>
+                </div>
+                
+                <div class="input_box">
+                    <input placeholder="Senha" type="password" id="senhaLogin">
+                    
+                    <i class='bx bx-show toggleSenha' style="position:absolute; right:20px; top:50%; transform: translateY(-50%); cursor:pointer;"></i>
+                </div>
+
+                <!-- Botão de login -->
+                <button class="login" type="submit">Entrar</button>
+
+                <h4>__________ ou __________</h4>
+
+                <!-- Login com Google -->
+                <button class="loginGG" type="button">
+                    <img src="./Imagens/google-logo.png" alt="" style="height:20px; vertical-align: middle; margin-right: 8px;">
+                    Login com Google
+                </button>
+
+                <!-- Botão de cadastro -->
+                <div>
+                    <button class="registrar" type="button" id="btnAbrirModal">CADASTRAR</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- ==================== -->
+    <!-- Modal de cadastro principal -->
+    <!-- ==================== -->
+    <div id="modalCadastro" class="modal">
+        <div class="modal-content">
+            <button class="voltar" id="btnFecharCadastro">
+                <img src="./Imagens/BotaoVoltar.png" alt="Voltar">
+            </button>
+            
+            <h1>Cadastro</h1>
+            <input type="text" placeholder="Nome" id="nomeCadastro">
+            <input type="text" placeholder="CPF" id="cpfCadastro">
+            <input type="password" placeholder="Senha" id="senhaCadastro">
+            <i class='bx bx-show toggleSenha' style="position:absolute; right:20px; top:calc(50% + 2px); transform: translateY(-50%); cursor:pointer;"></i>
+            
+            <!-- Seleção de tipo -->
+            <div class="roles">
+                <label class="role-option">
+                    <input type="radio" name="tipo" value="responsavel" id="radioResponsavel">
+                    <img src="./Imagens/responsavelPng.png" alt="Responsável">
+                    <p>Responsável</p>
+                </label>
+
+                <span class="ou">ou</span>
+
+                <label class="role-option">
+                    <input type="radio" name="tipo" value="cuidador">
+                    <img src="./Imagens/cuidadorPng.png" alt="Cuidador">
+                    <p>Cuidador</p>
+                </label>
+            </div>
+
+            <button class="registrar" id="btnCadastrar">CADASTRAR</button>
+        </div>
+    </div>
+
+    <!-- ==================== -->
+    <!-- Modal de erro -->
+    <!-- ==================== -->
+    <div id="modalErro" class="modal">
+        <div class="modal-content aviso">
+            <p>Por favor, preencha todos os campos!</p>
+            <button id="btnFecharErro">Fechar</button>
+        </div>
+    </div>
+
+    <!-- ==================== -->
+    <!-- Modal de sucesso -->
+    <!-- ==================== -->
+    <div id="modalSucesso" class="modal">
+        <div class="modal-content aviso">
+            <p>Cadastro concluído com sucesso!</p>
+            <button id="btnFecharSucesso">Fechar</button>
+        </div>
+    </div>
+
+    <!-- ==================== -->
+    <!-- Modal do responsável (segunda etapa do cadastro) -->
+    <!-- ==================== -->
+    <div id="modalResponsavel" class="modal">
+        <div class="modal-content">
+            <button class="voltar" id="btnFecharResponsavel">
+                <img src="./Imagens/BotaoVoltar.png" alt="Voltar">
+            </button>
+            
+            <h1>Cadastro Criança</h1>
+
+            <!-- Foto principal -->
+            <div class="foto-principal-container">
+                <img src="./Imagens/Icones crianças/gaga 5.jpg" id="fotoPrincipal">
+            </div>
+
+            <!-- Overlay da galeria -->
+            <div class="overlayGaleria" id="overlayGaleria">
+                <div class="galeriaConteudo">
+                    <span class="fecharGaleria" id="fecharGaleria">&times;</span>
+                    <h3>Escolha sua foto de perfil</h3>
+                    <div class="fotoGaleria">
+                        <img src="./Imagens/Icones crianças/gaga 1.jpg" class="perfil-opcao" alt="Foto 1">
+                        <img src="./Imagens/Icones crianças/gaga 2.jpeg" class="perfil-opcao" alt="Foto 2">
+                        <img src="./Imagens/Icones crianças/gaga 3.jpeg" class="perfil-opcao" alt="Foto 3">
+                        <img src="./Imagens/Icones crianças/gaga 4.jpeg" class="perfil-opcao" alt="Foto 4">
+                        <img src="./Imagens/Icones crianças/gaga 5.jpg" class="perfil-opcao" alt="Foto 5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário de dados do responsável -->
+            <div class="form-campos">
+                <input type="text" placeholder="Nome completo">
+                <input type="date" placeholder="Data de Nascimento">
+                <input type="text" placeholder="Telefone do responsavel">
+            </div>
+
+            <button class="registrar" id="btnFinalizarCadastro">FINALIZAR CADASTRO</button>
+        </div>
+    </div>
+
+    <!-- ==================== -->
+    <!-- Script JS -->
+    <!-- ==================== -->
+    <script src="BeeKid.js"></script>
+</body>
+</html>
