@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeKid</title>
+  <link rel="stylesheet" href="./perfilCuidador.css">
+    <link rel="stylesheet" href="/Navegacao/Botoes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+   
+    
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/40" alt="foto">
+     <p id="profileName">Nome do responsavel</p>
+      <p id="profileCPF">000.000.000-00</p>
+    </div>
+      <nav>
+        <a href="#" id="btnCuidadores"><i class="fa-solid fa-user-group"></i> Cuidadores</a>
+        <a href="#" id="btnCriancas"><i class="fa-solid fa-user-group"></i> Crianças</a>
+        <a href="#" id="btnChat"><i class="fa-solid fa-comments"></i> Chat</a>
+        <a href="#" id="btnSair"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+      </nav>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="profile-info">
+      <img src="./images.jpeg" alt="foto criança">
+      <h2 id="headerName">Pipoca</h2>
+        </div>
+
+        
+    </div>
+
+   <div class="info-box">
+  <div class="info-item">
+    <i class="fa-solid fa-location-dot"></i>
+    <input type="text" id="endereco" placeholder="Endereço">
+  </div>
+  <div class="info-item">
+    <i class="fa-solid fa-phone"></i>
+    <input type="text" id="telefone" placeholder="Telefone">
+  </div>
+  <div class="info-item">
+    <i class="fa-solid fa-user"></i>
+    <textarea id="sobre" placeholder="Sobre mim"></textarea>
+  </div>
+  <button id="salvarInfo"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+</div>
+  
+
+  <script src="./perfilCuidador.js"></script>
+  <script src="/BotaoSair.js"></script>
+</body>
+</html>

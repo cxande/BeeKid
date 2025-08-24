@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeKid</title>
+  <link rel="stylesheet" href="./perfilCrianca.css">
+  <link rel="stylesheet" href="/Navegacao/Botoes.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+   
+    
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/40" alt="foto">
+           <p id="profileName">Nome do responsavel</p>
+      <p id="profileCPF">000.000.000-00</p>
+    </div>
+
+      <nav>
+        <a href="#" id="btnCuidadores"><i class="fa-solid fa-user-group"></i> Cuidadores</a>
+        <a href="#" id="btnCriancas"><i class="fa-solid fa-user-group"></i> Crianças</a>
+        <a href="#" id="btnChat"><i class="fa-solid fa-comments"></i> Chat</a>
+        <a href="#" id="btnSair"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+      </nav>
+
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="profile-info">
+      <img src="./images.jpeg" alt="foto criança">
+      <h2 id="headerName">Pipoca</h2>
+        </div>
+
+          <div class="calendar">
+            <div class="calendar-header">
+              <button onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
+              <span id="month-year"></span>
+              <button onclick="nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          <div class="calendar-days" id="calendar-days"></div>
+        </div>
+    </div>
+
+    <div class="cards">
+      <div class="card" id="atividades">
+        <div class="card-header">
+          <h3>Atividades do Dia</h3>
+          <button class="add-btn" onclick="openModal('atividades')">+ Adicionar</button>
+        </div>
+      </div>
+
+      <div class="card" id="alergias">
+        <div class="card-header">
+          <h3>Alergias e Restrições</h3>
+          <button class="add-btn" onclick="openModal('alergias')">+ Adicionar</button>
+        </div>
+      </div>
+
+      <div class="card" id="cuidadores">
+        <div class="card-header">
+          <h3>Cuidador</h3>
+          <button class="add-btn" onclick="openCpfModal()">+ Adicionar</button>
+        </div>
+      </div>
+
+  
+    </div>
+  </div>
+
+  <!-- Modal genérico -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2>Adicionar</h2>
+      <input type="text" id="titulo" placeholder="Título">
+      <textarea id="descricao" placeholder="Descrição"></textarea>
+      <button onclick="addItem()">Salvar</button>
+    </div>
+  </div>
+
+  <!-- Modal CPF Cuidador -->
+  <div class="modal" id="cpfModal">
+    <div class="modal-content">
+      <h2>Adicionar Cuidador</h2>
+      <hr>
+      <label for="cpf">CPF do Cuidador:</label>
+      <input type="text" id="cpfInput" placeholder="000.000.000-00">
+      <button onclick="vincularCuidador()">PESQUISAR</button>
+    </div>
+  </div>
+
+  <!-- Modal de aviso -->
+  <div class="modal" id="alertModal">
+    <div class="modal-content">
+      <h2 id="alertMsg">Mensagem</h2>
+      <button onclick="closeAlert()">OK</button>
+    </div>
+  </div>
+
+  <script src="./perfilCrianca.js"></script>
+   <script src="/Navegacao/BotoesNav.js"></script>
+</body>
+</html>

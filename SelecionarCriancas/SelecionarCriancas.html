@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeKid - Selecionar Criança</title>
+  <link rel="stylesheet" href="./SelecionarCriancas.css">
+  <link rel="stylesheet" href="/Navegacao/Botoes.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/40" alt="foto">
+      <p id="profileName">Nome Sobrenome</p>
+      <p id="profileCPF">000.000.000-00</p>
+    </div>
+     <nav>
+        <a href="#" id="btnCuidadores"><i class="fa-solid fa-user-group"></i> Cuidadores</a>
+        <a href="#" id="btnCriancas"><i class="fa-solid fa-user-group"></i> Crianças</a>
+        <a href="#" id="btnChat"><i class="fa-solid fa-comments"></i> Chat</a>
+        <a href="#" id="btnSair"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+      </nav>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <h1>Selecione a Criança</h1>
+    <div class="profiles">
+
+      <div class="profile-card">
+        <img src="./Imagens/Icone Base.jpg" alt="Foto da criança">
+        <h2>Maria Clara</h2>
+        <button class="btn-acessar" onclick="acessarPerfil('maria')">Acessar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./SelecionarCriancas.js"></script>
+   <script src="/Navegacao/BotoesNav.js"></script>
+</body>
+</html>

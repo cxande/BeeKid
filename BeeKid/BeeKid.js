@@ -201,3 +201,22 @@ toggles.forEach(toggle => {
         }
     });
 });
+
+// ====================
+// Login simplificado (sem banco)
+// ====================
+const formLogin = document.querySelector("form"); // pega seu form de login
+formLogin.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const cpf = formLogin.querySelector("input[placeholder='CPF']").value;
+    const senha = formLogin.querySelector("#senhaLogin").value;
+
+    if (!cpf.trim() || !senha.trim()) {
+        abrirModalErro("Preencha CPF e senha!");
+        return;
+    }
+
+    // Login simulado
+    window.location.href = "http://127.0.0.1:5500/SelecionarCriancas/SelecionarCriancas.html"; 
+});
