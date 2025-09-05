@@ -1,0 +1,409 @@
+/* ============================= */
+/* RESET E BASE GLOBAL */
+/* ============================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  background: #f5f5fc;
+  margin: 0;
+  color: var(--text);
+  font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* ============================= */
+/* VARIÁVEIS */
+/* ============================= */
+:root {
+  --bg: #faf7f7;
+  --card: #fff;
+  --text: #7a3fc1;
+  --muted: #6b7280;
+  --brand: #863fc1;
+  --brand-2: #7a3fc1;
+  --danger: #217a0b;
+  --ok: #059669;
+  --bd: #e5e7eb;
+  --radius: 14px;
+}
+
+/* ============================= */
+/* SIDEBAR */
+/* ============================= */
+.sidebar {
+  position: fixed;
+  width: 220px;
+  background: #7a3fc1;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.sidebar .profile {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sidebar .profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.sidebar nav a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.sidebar nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+body > *:not(.sidebar) {
+  margin-left: 220px;
+}
+
+/* ============================= */
+/* BOTÕES */
+/* ============================= */
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: var(--brand);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: var(--brand-2);
+}
+
+.btn.ghost {
+  background: #fff;
+  border-color: var(--bd);
+}
+
+.btn.danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ============================= */
+/* CONTAINERS E CARDS */
+/* ============================= */
+.container {
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .04);
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+/* ============================= */
+/* FORMULÁRIOS E INPUTS */
+/* ============================= */
+label {
+  display: block;
+  font-weight: 600;
+  margin: 10px 0 10px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  background: #fff;
+}
+
+input[readonly],
+select[disabled] {
+  background: #f3f4f6;
+  color: var(--muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.row-3 {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.row-1 {
+  grid-template-columns: 1fr;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+#btnAddEndereco {
+  padding: 3px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* ============================= */
+/* AVATAR E IDENTIDADE */
+/* ============================= */
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--bd);
+}
+
+.identity {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #e0e7ff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ============================= */
+/* LISTAS E CARDS SECUNDÁRIOS */
+/* ============================= */
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.addr {
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.addr h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.addr .meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.addr .addr-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.empty {
+  padding: 16px;
+  border: 1px dashed var(--bd);
+  border-radius: 12px;
+  color: var(--muted);
+  background: #fafafa;
+}
+
+/* ============================= */
+/* TOAST */
+/* ============================= */
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #111827;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: .25s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================= */
+/* PERFIL CRIANÇAS */
+/* ============================= */
+.main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  align-items: start;
+}
+
+.left-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  grid-auto-rows: auto;
+}
+
+.left-column .card.header {
+  grid-column: span 2;
+}
+
+#atividades, #cuidadores {
+  width: 100%;
+  flex: 1;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  width: 110%;
+}
+
+.header {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #6c63ff;
+}
+
+.profile-info h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#listaAtividades li {
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 12px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+#listaAtividades li strong {
+  font-size: 15px;
+  color: #333;
+}
+
+#listaAtividades li span {
+  font-size: 14px;
+  color: #666;
+}
+
+#listaAtividades li .actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+#listaAtividades li .actions button {
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid var(--bd);
+  cursor: pointer;
+}
+
+#listaAtividades li .actions button:hover {
+  background: #eee;
+}

@@ -1,0 +1,52 @@
+<div class="main">
+  <!-- Coluna esquerda (foto + atividades + cuidadores) -->
+  <div class="left-column">
+    <!-- Foto + nome -->
+    <div class="card header">
+      <div class="profile-info">
+        <img src="/images/images.jpeg" alt="foto criança">
+        <h2 id="headerName"><%= crianca.nome %></h2>
+      </div>
+    </div>
+
+    <!-- Atividades -->
+    <div class="card" id="atividades">
+      <div class="card-header">
+        <h3>Atividades do Dia</h3>
+        <button class="add-btn" onclick="openAtividadeModal()">+ Adicionar</button>
+      </div>
+      <ul id="listaAtividades"></ul>
+    </div>
+
+    <!-- Cuidadores -->
+    <div class="card" id="cuidadores">
+      <div class="card-header">
+        <h3>Cuidador</h3>
+        <button class="add-btn" onclick="openEmailModal()">+ Adicionar</button>
+      </div>
+      <ul id="listaCuidadores"></ul>
+    </div>
+  </div>
+
+
+<!-- Partials: mantenha SOMENTE os que não duplicam IDs -->
+<%- include('partials/modal-alergias') %>
+<%- include('partials/modal-alert') %>
+<%- include('partials/modal-atividades') %>
+<%- include('partials/modal-email') %> 
+
+<!-- Scripts: defina o ID, depois auth, depois o crianca.js -->
+<script>
+  window.__ID_CRIANCA = "<%= crianca.idCrianca %>";
+</script>
+
+<!-- 1) auth primeiro -->
+<script src="/js/auth.js"></script>
+
+<!-- 2) utilitários (usa __ID_CRIANCA) -->
+<script src="/js/utils.js"></script>
+
+<!-- 3) módulos por feature -->
+<script src="/js/agenda.js" defer></script>
+<script src="/js/info.js" defer></script>
+<script src="/js/cuidadores.js" defer></script>

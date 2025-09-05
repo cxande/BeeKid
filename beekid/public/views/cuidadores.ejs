@@ -1,0 +1,212 @@
+<section class="perfil-page">
+  <header class="topbar">
+    <a class="link-back" href="/cuidadores"><i class="fa fa-arrow-left"></i> Voltar</a>
+  </header>
+
+  <div id="loading" class="status" role="status" aria-live="polite">Carregando perfil…</div>
+  <div id="notfound" class="empty" hidden>Cuidador não encontrado ou sem vínculo com suas crianças.</div>
+
+  <article id="perfil" class="perfil-card" hidden>
+    <div class="perfil-card__header">
+      <div id="avatar" class="perfil-avatar"></div>
+      <div>
+        <h1 id="nome" class="name">—</h1>
+        <div id="contato" class="muted">—</div>
+      </div>
+    </div>
+
+    <section class="section">
+      <h2>Dados</h2>
+      <dl class="kv">
+        <div><dt>CPF</dt><dd id="cpf">—</dd></div>
+        <div><dt>Email</dt><dd id="email">—</dd></div>
+        <div><dt>Telefone</dt><dd id="telefone">—</dd></div>
+      </dl>
+    </section>
+
+    <section class="section">
+      <h2>Endereços</h2>
+      <ul id="enderecos" class="list"></ul>
+      <div id="enderecos-empty" class="muted">Nenhum endereço cadastrado.</div>
+    </section>
+
+    <section class="section">
+      <h2>Crianças vinculadas</h2>
+      <ul id="criancas" class="list"></ul>
+      <div id="criancas-empty" class="muted">Sem vínculos.</div>
+    </section>
+  </article>
+</section>
+
+<style>
+  .perfil-page { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+  .topbar { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+  .link-back { text-decoration: none; color: #3b82f6; }
+  .status { margin: 1rem 0; color: #666; }
+  .empty { margin: 1rem 0; color: #777; text-align: center; }
+
+  .perfil-card {
+    display: grid; gap: 1rem; padding: 1.2rem; border: 1px solid #eee;
+    border-radius: 1rem; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  .perfil-card__header { display: flex; gap: 1rem; align-items: center; }
+  .perfil-avatar { width: 72px; height: 72px; border-radius: 50%; background: #f3f4f6;
+                   display: grid; place-items: center; overflow: hidden; }
+  .perfil-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .avatar__initials { font-size: 1.3rem; font-weight: 800; color: #666; }
+  .name { margin: 0; }
+  .muted { color: #6b7280; }
+
+  .section h2 { margin: .2rem 0 .6rem; font-size: 1.05rem; }
+  .kv { display: grid; gap: .35rem; }
+  .kv dt { font-weight: 600; color: #374151; }
+  .kv dd { margin: 0; color: #111827; }
+  .kv > div { display: grid; grid-template-columns: 140px 1fr; gap: .6rem; }
+  .list { margin: 0; padding-left: 1.1rem; }
+  .list li { margin: .25rem 0; }
+</style>
+
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+
+  const loading = $('loading');
+  const notfound = $('notfound');
+  const perfil = $('perfil');
+
+  const nome = $('nome');
+  const contato = $('contato');
+  const avatar = $('avatar');
+
+  const cpf = $('cpf');
+  const email = $('email');
+  const telefone = $('telefone');
+
+  const enderecos = $('enderecos');
+  const enderecosEmpty = $('enderecos-empty');
+
+  const criancas = $('criancas');
+  const criancasEmpty = $('criancas-empty');
+
+  function authFetch(url, options = {}) {
+    const token = localStorage.getItem('token');
+    const headers = Object.assign({}, options.headers || {}, token ? { Authorization: 'Bearer ' + token } : {});
+    return fetch(url, { ...options, headers, credentials: 'same-origin' });
+  }
+
+  function getIdFromURL() {
+    const m = location.pathname.match(/\/cuidadores\/(\d+)/);
+    if (m) return parseInt(m[1], 10);
+    // fallback se ainda vier como ?id=123
+    const id = new URLSearchParams(location.search).get('id');
+    return id ? parseInt(id, 10) : NaN;
+  }
+
+  function maskCPF(v) {
+    if (!v) return '—';
+    const s = String(v).replace(/\D/g,'').padStart(11, '0').slice(-11);
+    return `${s.slice(0,3)}.${s.slice(3,6)}.${s.slice(6,9)}-${s.slice(9)}`;
+  }
+
+  function formatPhone(v) {
+    if (!v) return '—';
+    const s = String(v).replace(/\D/g,'');
+    if (s.length === 11) return `(${s.slice(0,2)}) ${s.slice(2,7)}-${s.slice(7)}`;
+    if (s.length === 10) return `(${s.slice(0,2)}) ${s.slice(2,6)}-${s.slice(6)}`;
+    return v;
+  }
+
+  function ageFromISO(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    if (isNaN(d)) return null;
+    const t = new Date();
+    let age = t.getFullYear() - d.getFullYear();
+    const m = t.getMonth() - d.getMonth();
+    if (m < 0 || (m === 0 && t.getDate() < d.getDate())) age--;
+    return age;
+  }
+
+  function setAvatar(nomeStr, fotoUrl) {
+    avatar.innerHTML = '';
+    if (fotoUrl) {
+      const img = new Image();
+      img.src = fotoUrl;
+      img.alt = nomeStr ? `Foto de ${nomeStr}` : 'Foto do cuidador';
+      avatar.appendChild(img);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'avatar__initials';
+      span.textContent = (nomeStr || '?').split(/\s+/).map(p => p[0]?.toUpperCase() || '').slice(0, 2).join('');
+      avatar.appendChild(span);
+    }
+  }
+
+  function renderPerfil(data) {
+    nome.textContent = data.nome || 'Sem nome';
+    contato.textContent = data.email || data.telefone || 'Sem contato';
+    setAvatar(data.nome, data.fotoUrl);
+
+    cpf.textContent = maskCPF(data.cpf);
+    email.textContent = data.email || '—';
+    telefone.textContent = formatPhone(data.telefone);
+
+    enderecos.innerHTML = '';
+    if (Array.isArray(data.enderecos) && data.enderecos.length) {
+      enderecosEmpty.hidden = true;
+      data.enderecos.forEach(e => {
+        const li = document.createElement('li');
+        const parts = [
+          e.logradouro, e.numero && `nº ${e.numero}`,
+          e.bairro, e.cidade && `${e.cidade}/${e.estado}`, e.cep
+        ].filter(Boolean);
+        li.textContent = parts.join(', ');
+        enderecos.appendChild(li);
+      });
+    } else {
+      enderecosEmpty.hidden = false;
+    }
+
+    criancas.innerHTML = '';
+    if (Array.isArray(data.criancasVinculadas) && data.criancasVinculadas.length) {
+      criancasEmpty.hidden = true;
+      data.criancasVinculadas.forEach(ch => {
+        const li = document.createElement('li');
+        const idade = ageFromISO(ch.dataNascimento);
+        li.textContent = `${ch.nome}${idade != null ? ` — ${idade} anos` : ''}`;
+        criancas.appendChild(li);
+      });
+    } else {
+      criancasEmpty.hidden = false;
+    }
+  }
+
+   async function init() {
+    const id = getIdFromURL();
+    if (!Number.isFinite(id)) {
+      loading.hidden = true;
+      notfound.hidden = false;
+      return;
+    }
+
+    try {
+      // evita cache agressivo do navegador
+      const res = await authFetch(`/api/cuidadores/${id}?_=${Date.now()}`, { cache: 'no-store' });
+
+      if (res.status === 404) { loading.hidden = true; notfound.hidden = false; return; }
+      if (res.status === 401) { loading.textContent = 'Você precisa entrar para ver este perfil.'; return; }
+      if (!res.ok) throw new Error('Falha ao carregar perfil');
+
+      const data = await res.json();
+      renderPerfil(data);
+      loading.hidden = true;
+      perfil.hidden = false;
+    } catch (e) {
+      console.error(e);
+      loading.textContent = 'Erro ao carregar. Tente novamente.';
+    }
+  }
+
+  init();
+})();
+</script>

@@ -1,0 +1,178 @@
+<link rel="stylesheet" href="BeeKidCSS.css">
+
+<!-- ==================== -->
+<!-- Tela principal de login -->
+<!-- ==================== -->
+<main class="container">
+
+  <div class="illustration">
+    <img src="./Imagens/criancalogin.png" alt="Ilustração BeeKid">
+  </div>
+
+  <div class="roxo">
+    <form id="loginForm">
+
+      <h1>BeeKid</h1>
+
+      <!-- Campo de login por EMAIL -->
+      <div class="input_box">
+        <input id="emailLogin" type="email" placeholder="E-mail" required />
+        <i class="bx bxs-user"></i>
+      </div>
+
+      <!-- Campo senha -->
+      <div class="input_box">
+        <input placeholder="Senha" type="password" id="senhaLogin" required />
+        <i class="bx bx-show toggleSenha" 
+           style="position:absolute; right:20px; top:50%; transform: translateY(-50%); cursor:pointer;"></i>
+      </div>
+
+      <!-- Botão de login -->
+      <button class="login" type="submit">Entrar</button>
+
+      <h4>__________ ou __________</h4>
+
+      <!-- Login com Google -->
+      <button class="loginGG" type="button" id="btnLoginGoogle">
+        <img src="./Imagens/google-logo.png" alt="" style="height:20px; vertical-align: middle; margin-right: 8px;">
+        Login com Google
+      </button>
+
+      <!-- Botão de cadastro -->
+      <div>
+        <button class="registrar" type="button" id="btnAbrirModal">CADASTRAR</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<%- include('partials/modal-cadastro'); %>
+<%- include('partials/modal-erro'); %>
+<%- include('partials/modal-sucesso'); %>
+<%- include('partials/modal-responsavel'); %>
+
+
+
+<!-- ==================== -->
+<!-- Script JS -->
+<!-- ==================== -->
+<script src="auth.js"></script>
+<script>
+// ==================== LOGIN ====================
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('emailLogin').value;
+  const senha = document.getElementById('senhaLogin').value;
+
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // alert('Login realizado com sucesso!'); // Linha que pode ser removida
+      localStorage.setItem('token', data.token);
+       window.location.href = `/dashboard?token=${data.token}`; // Redirecionamento correto
+    } else {
+      alert('Erro no login: ' + data.message);
+    }
+  } catch (error) {
+    alert('Erro de conexão com o servidor.');
+  }
+});
+
+// ==================== LOGIN GOOGLE ====================
+document.getElementById("btnLoginGoogle").addEventListener("click", () => {
+  window.location.href = "http://localhost:3000/api/auth/google";
+});
+
+// ==================== MODAIS ====================
+const btnAbrirModal = document.getElementById("btnAbrirModal");
+const modalCadastro = document.getElementById("modalCadastro");
+const btnFecharCadastro = document.getElementById("btnFecharCadastro");
+const btnCadastrar = document.getElementById("btnCadastrar");
+const modalResponsavel = document.getElementById("modalResponsavel");
+const btnFecharResponsavel = document.getElementById("btnFecharResponsavel");
+const modalErro = document.getElementById("modalErro");
+const btnFecharErro = document.getElementById("btnFecharErro");
+const modalSucesso = document.getElementById("modalSucesso");
+const btnFecharSucesso = document.getElementById("btnFecharSucesso");
+
+btnAbrirModal.addEventListener("click", () => {
+  modalCadastro.style.display = "block";
+});
+
+btnFecharCadastro.addEventListener("click", () => {
+  modalCadastro.style.display = "none";
+});
+
+btnCadastrar.addEventListener("click", async () => {
+  // Captura os valores dos campos do cadastro
+  const nome = document.getElementById("nomeCadastro").value;
+  const cpf = document.getElementById("cpfCadastro").value; // ⚡ precisa existir no modal
+  const email = document.getElementById("emailCadastro").value;
+  const senha = document.getElementById("senhaCadastro").value;
+  const tipoUser = 'responsavel'; // Tipo de usuário fixo
+
+  if (!nome || !cpf || !email || !senha) {
+    modalErro.style.display = 'block';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome,
+        cpf,
+        email,
+        senha,
+        tipoUser
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Cadastro concluído com sucesso!');
+      localStorage.setItem('token', data.token);
+      modalCadastro.style.display = "none";
+      modalResponsavel.style.display = "block"; 
+    } else {
+      alert('Erro no cadastro: ' + data.error);
+    }
+  } catch (error) {
+    console.error('Erro de conexão:', error);
+    alert('Erro de conexão com o servidor. Tente novamente mais tarde.');
+  }
+});
+
+btnFecharResponsavel.addEventListener("click", () => {
+  modalResponsavel.style.display = "none";
+  modalCadastro.style.display = "block";
+});
+
+btnFecharErro.addEventListener("click", () => {
+  modalErro.style.display = "none";
+});
+
+btnFecharSucesso.addEventListener("click", () => {
+  modalSucesso.style.display = "none";
+});
+
+// ==================== TOGGLE SENHA ====================
+const toggleSenha = document.querySelector('.toggleSenha');
+toggleSenha.addEventListener('click', function() {
+  const senhaInput = this.previousElementSibling;
+  const tipo = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  senhaInput.setAttribute('type', tipo);
+  this.classList.toggle('bx-show');
+  this.classList.toggle('bx-hide');
+});
+</script>

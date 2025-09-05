@@ -1,0 +1,34 @@
+<!-- Modal Info da Criança -->
+<div class="modal" id="infoModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('infoModal')">&times;</button>
+    <h2 id="infoModalTitle">Adicionar informação</h2>
+
+    <input type="hidden" id="infoIdInput">
+
+    <label for="tipoInfoSelect">Tipo:</label>
+    <select id="tipoInfoSelect">
+      <!-- mapeia para ENUM existentes ou próximos -->
+      <option value="alergias">Alergia</option>
+      <option value="medicamento">Saúde</option>
+      <option value="escola">Escola</option>
+      <option value="outros">Outros</option>
+    </select>
+
+    <textarea id="infoDescricaoInput" placeholder="Descrição"></textarea>
+
+    <button class="add-btn" id="salvarInfoBtn">Salvar</button>
+    <button id="cancelarAtividadeBtn" onclick="closeModal('infoModal')">Cancelar</button>
+  </div>
+</div>
+
+<!-- Lista na página -->
+   <div class="right-column">
+    <div class="card" id="info-crianca-card">
+      <div class="card-header">
+        <h3>Informações da Criança</h3>
+        <button class="add-btn" onclick="openInfoModal()">+ Adicionar</button>
+      </div>
+      <ul id="listaInfos"></ul>
+    </div>
+  </div>

@@ -1,0 +1,29 @@
+<div class="main-content">
+  <h1>Selecione a Criança</h1>
+
+  <div id="no-crianca-message" style="display: none;">
+    <p>Você não tem nenhuma criança associada.</p>
+    <p>Clique no botão abaixo para adicionar uma nova criança.</p>
+  </div>
+
+  <!-- Seção de Responsável -->
+  <div class="profiles-section">
+    <h2>Sou Responsável</h2>
+    <div class="profiles" id="responsavel-container">
+      <!-- Cards vão ser renderizados aqui -->
+    </div>
+  </div>
+
+  <!-- Seção de Cuidador -->
+  <div class="profiles-section">
+    <h2>Sou Cuidador</h2>
+    <div class="profiles" id="cuidador-container">
+      <!-- Cards vão ser renderizados aqui -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal de adicionar criança -->
+<%- include('partials/modal-add-crianca') %>
+
+<script src="/js/selecionarCrianca.js"></script>
